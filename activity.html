@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>当前活动组件</title>
+    <link rel="stylesheet" href="component-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Microsoft+YaHei+UI:wght@300;400;500;700&display=swap">
+    <style>
+        body {
+            width: 300px;
+            height: 220px;
+            border-radius: 15px;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .widget-container {
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="widget-container activity-container">
+        <div class="widget-header">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <span>当前活动</span>
+        </div>
+        <div class="widget-body">
+            <div class="activity-status" id="activity-status">
+                <div class="activity-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="activity-details">
+                    <div class="activity-name" id="current-activity-name">语文课</div>
+                    <div class="activity-time" id="current-activity-time">08:00 - 08:45</div>
+                    <div class="activity-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="activity-progress-fill" style="width: 60%;"></div>
+                        </div>
+                        <div class="progress-text" id="activity-progress-text">已过 60%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="activity.js"></script>
+</body>
+</html>

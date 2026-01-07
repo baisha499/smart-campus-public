@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>班级初始化</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Microsoft YaHei UI', sans-serif;
+      background: transparent;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+    }
+    
+    .container {
+      background: rgba(96, 96, 96, 0.5);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 350px;
+      position: relative;
+    }
+    
+    .title {
+      text-align: center;
+      color: #000;
+      margin-bottom: 25px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    
+    .input-group {
+      margin-bottom: 25px;
+    }
+    
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #000;
+      font-size: 14px;
+    }
+    
+    .input-group input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.3s;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #000;
+    }
+    
+    .input-group input:focus {
+      border-color: #2575fc;
+    }
+    
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
+    
+    .btn {
+      flex: 1;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .btn-confirm {
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+    }
+    
+    .btn-confirm:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(37, 117, 252, 0.4);
+    }
+    
+    .btn-cancel {
+      background: rgba(255, 255, 255, 0.9);
+      color: #000;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+    
+    .btn-cancel:hover {
+      background: rgba(255, 255, 255, 1);
+    }
+    
+    .window-controls {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+    
+    .window-control {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      background: white;
+      border: none;
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+    
+    .window-control:hover {
+      background: rgba(220, 220, 220, 0.9);
+      transform: rotate(90deg);
+    }
+    
+    .window-control::before {
+      content: "×";
+      font-size: 24px;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="window-controls">
+      <button class="window-control" id="closeBtn"></button>
+    </div>
+    <div class="title">初始化班级，请输入你的班级</div>
+    <div class="input-group">
+      <label for="className">班级名称：</label>
+      <input type="text" id="className" placeholder="例如：高三(1)班" autofocus>
+    </div>
+    <div class="button-group">
+      <button class="btn btn-cancel" id="cancelBtn">取消</button>
+      <button class="btn btn-confirm" id="confirmBtn">确认</button>
+    </div>
+  </div>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+    
+    const closeBtn = document.getElementById('closeBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const classNameInput = document.getElementById('className');
+    
+    // 进入页面时自动聚焦输入框
+    window.onload = () => {
+      classNameInput.focus();
+    };
+    
+    // 点击关闭按钮
+    closeBtn.addEventListener('click', () => {
+      ipcRenderer.send('close-initialization');
+    });
+    
+    // 点击取消按钮
+    cancelBtn.addEventListener('click', () => {
+      ipcRenderer.send('close-initialization');
+    });
+    
+    // 点击确认按钮
+    confirmBtn.addEventListener('click', () => {
+      const className = classNameInput.value.trim();
+      
+      if (!className) {
+        // 输入框为空时抖动提示
+        classNameInput.style.borderColor = '#ff5f57';
+        classNameInput.classList.add('shake');
+        setTimeout(() => {
+          classNameInput.style.borderColor = '';
+          classNameInput.classList.remove('shake');
+        }, 1000);
+        return;
+      }
+      
+      // 发送班级名称到主进程
+      ipcRenderer.send('initialize-class', className);
+    });
+    
+    // 回车键确认
+    classNameInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        confirmBtn.click();
+      }
+    });
+    
+    // 添加抖动效果的CSS
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+        20%, 40%, 60%, 80% { transform: translateX(5px); }
+      }
+      .shake {
+        animation: shake 0.5s;
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>

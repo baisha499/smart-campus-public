@@ -1,0 +1,486 @@
+/* 全局样式 - 适配300*220窗口 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    font-family: 'Microsoft YaHei UI', sans-serif;
+    background: transparent;
+    backdrop-filter: blur(10px);
+    color: #fff;
+    overflow: hidden;
+    height: 100vh;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+html, body {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+/* 组件容器样式 - 适配300*220窗口 */
+.widget-container {
+    background: rgba(96, 96, 96, 0.75);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%;
+    width: 100%;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.widget-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.widget-header {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 8px;
+}
+
+.widget-header i {
+    color: #4b6cb7;
+}
+
+.widget-body {
+    margin-top: 10px;
+}
+
+/* 天气组件样式 - 适配300*220窗口 */
+.weather-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.weather-icon {
+    font-size: 32px;
+    color: #FFD700;
+}
+
+.temperature {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.weather-desc {
+    font-size: 14px;
+    color: #aaa;
+    margin-bottom: 3px;
+}
+
+.city {
+    font-size: 12px;
+    color: #888;
+}
+
+.weather-extra {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    justify-content: space-between;
+}
+
+.extra-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: #ccc;
+}
+
+.extra-item i {
+    color: #4b6cb7;
+}
+
+/* 课程表组件样式 - 适配300*220窗口 */
+.schedule-date {
+    font-size: 12px;
+    color: #aaa;
+    margin-left: auto;
+}
+
+.schedule-controls {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.schedule-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.schedule-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.schedule-scroll-container {
+    max-height: 140px;
+    overflow-y: auto;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 5px;
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.schedule-table th {
+    text-align: left;
+    padding: 6px;
+    font-size: 12px;
+    color: #aaa;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    background: rgba(96, 96, 96, 0.75);
+    z-index: 1;
+}
+
+.schedule-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 12px;
+}
+
+.schedule-table tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* 倒计时组件样式 - 适配300*220窗口 */
+.countdown-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.countdown-value {
+    font-size: 36px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #4b6cb7, #182848);
+    border-radius: 6px;
+    padding: 8px 12px;
+    min-width: 60px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.countdown-label {
+    font-size: 11px;
+    color: #aaa;
+    margin-top: 3px;
+}
+
+.countdown-separator {
+    font-size: 28px;
+    font-weight: 700;
+    color: #4b6cb7;
+    margin-top: -8px;
+}
+
+.countdown-info {
+    text-align: center;
+}
+
+.next-event {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 3px;
+}
+
+.event-time {
+    font-size: 12px;
+    color: #aaa;
+}
+
+/* 当前活动组件样式 - 适配300*220窗口 */
+.activity-status {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.activity-icon {
+    font-size: 36px;
+    color: #4b6cb7;
+}
+
+.activity-details {
+    flex: 1;
+}
+
+.activity-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 3px;
+}
+
+.activity-time {
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 8px;
+}
+
+.activity-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 6px;
+    background: rgba(144, 144, 144, 0.75);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4b6cb7, #3aadff);
+    border-radius: 3px;
+    transition: width 0.5s;
+}
+
+.progress-text {
+    font-size: 12px;
+    color: #aaa;
+    min-width: 50px;
+}
+
+/* 提醒组件样式 - 适配300*220窗口 */
+.notification-container {
+    padding: 10px;
+}
+
+.notification-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.clear-btn {
+    margin-left: auto;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 4px;
+    padding: 3px 8px;
+    color: white;
+    font-size: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.clear-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.notification-list {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.notification-item {
+    background: rgba(144, 144, 144, 0.75);
+    border-radius: 6px;
+    padding: 8px;
+    margin-bottom: 8px;
+    border-left: 3px solid #4b6cb7;
+    font-size: 12px;
+}
+
+.notification-time {
+    font-size: 10px;
+    color: #888;
+    margin-top: 3px;
+}
+
+/* 设置界面样式 */
+.settings-container {
+    background: #505050;
+    border-radius: 12px;
+    box-shadow: none;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    min-width: 400px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.settings-header h2 {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.close-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 6px;
+    width: 32px;
+    height: 32px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.settings-body {
+    padding: 20px;
+}
+
+.settings-section {
+    margin-bottom: 30px;
+}
+
+.settings-section h3 {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.setting-item:last-child {
+    border-bottom: none;
+}
+
+.setting-item label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.setting-item i {
+    color: #4b6cb7;
+    width: 20px;
+    text-align: center;
+}
+
+.setting-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #4b6cb7;
+}
+
+.import-btn {
+    background: linear-gradient(135deg, #4b6cb7, #182848);
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.import-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(75, 108, 183, 0.4);
+}
+
+.setting-item.description {
+    padding: 8px 0;
+    border-bottom: none;
+}
+
+.setting-item.description p {
+    color: #888;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.setting-item.description i {
+    color: #f39c12;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}

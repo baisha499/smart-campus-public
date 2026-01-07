@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机点名</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Microsoft+YaHei+UI:wght@300;400;500;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei UI', sans-serif;
+            background: transparent;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            user-select: none;
+            overflow: hidden;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .roll-call-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background: rgba(96, 96, 96, 0.75);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .roll-call-title {
+            font-size: 24px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .roll-call-title i {
+            color: #FFD700;
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .roll-call-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            background: rgba(96, 96, 96, 0.5);
+        }
+
+        .student-count {
+            margin-bottom: 30px;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .roll-display {
+            margin: 30px 0;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .student-name {
+            font-size: 64px;
+            font-weight: bold;
+            color: #fff;
+            padding: 20px 40px;
+            background: rgba(144, 144, 144, 0.75);
+            border-radius: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            min-width: 400px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .student-name.rolling {
+            animation: rollAnimation 0.2s infinite;
+            background: rgba(176, 176, 176, 0.75);
+            transform: scale(1.05);
+            color: #FFD700;
+        }
+
+        @keyframes rollAnimation {
+            0% { transform: scale(1.05) rotate(0deg); }
+            25% { transform: scale(1.08) rotate(1deg); }
+            50% { transform: scale(1.05) rotate(0deg); }
+            75% { transform: scale(1.08) rotate(-1deg); }
+            100% { transform: scale(1.05) rotate(0deg); }
+        }
+
+        .roll-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .roll-button {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #333;
+            border: none;
+            padding: 18px 40px;
+            font-size: 20px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .roll-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 215, 0, 0.4);
+        }
+
+        .roll-button:active {
+            transform: translateY(0);
+        }
+
+        .roll-button.stop {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+        }
+
+        .roll-button.stop:hover {
+            box-shadow: 0 12px 30px rgba(231, 76, 60, 0.4);
+        }
+
+        .roll-status {
+            font-size: 16px;
+            color: #fff;
+            min-height: 24px;
+        }
+
+        .no-students {
+            text-align: center;
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+
+        .no-students i {
+            font-size: 48px;
+            color: #e74c3c;
+            margin-bottom: 15px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="roll-call-header">
+        <div class="roll-call-title">
+            <i class="fas fa-users"></i>
+            <span>随机点名</span>
+        </div>
+        <button class="close-btn" id="close-roll-call">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
+    <div class="roll-call-content">
+        <div class="student-count" id="student-count">加载中...</div>
+        
+        <div id="roll-content">
+            <!-- 有学生时的内容 -->
+            <div class="roll-display">
+                <div class="student-name" id="student-name">?</div>
+            </div>
+            
+            <div class="roll-controls">
+                <button class="roll-button" id="roll-button">
+                    <i class="fas fa-random"></i> 开始点名
+                </button>
+                <div class="roll-status" id="roll-status"></div>
+            </div>
+        </div>
+        
+        <div id="no-students-content" style="display: none;">
+            <div class="no-students">
+                <i class="fas fa-user-slash"></i>
+                <div>暂无学生名单</div>
+                <div style="font-size: 16px; margin-top: 10px;">请在设置中导入学生名单</div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="roll-call-window.js"></script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设置</title>
+    <link rel="stylesheet" href="component-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Microsoft+YaHei+UI:wght@300;400;500;700&display=swap">
+    <style>
+        /* 设置窗口特殊样式 */
+        .settings-body {
+            max-height: 450px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .settings-body::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .settings-body::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+        
+        .settings-body::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+        
+        .settings-body::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* 拖动区域样式 */
+        .drag-area {
+            -webkit-app-region: drag;
+        }
+        
+        /* 禁用拖动的区域 */
+        .no-drag {
+            -webkit-app-region: no-drag;
+        }
+    </style>
+</head>
+<body>
+    <div class="settings-container">
+        <div class="settings-header drag-area">
+            <h2>设置</h2>
+            <button class="close-btn no-drag" id="close-settings"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="settings-body">
+            <div class="settings-section">
+                <h3>组件显示控制</h3>
+                <div class="setting-item no-drag">
+                    <label for="weather-toggle">
+                        <i class="fas fa-cloud-sun"></i>
+                        <span>天气组件</span>
+                    </label>
+                    <input type="checkbox" id="weather-toggle" checked>
+                </div>
+                <div class="setting-item no-drag">
+                    <label for="schedule-toggle">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>今日课程</span>
+                    </label>
+                    <input type="checkbox" id="schedule-toggle" checked>
+                </div>
+                <div class="setting-item no-drag">
+                    <label for="countdown-toggle">
+                        <i class="fas fa-clock"></i>
+                        <span>倒计时</span>
+                    </label>
+                    <input type="checkbox" id="countdown-toggle" checked>
+                </div>
+                <div class="setting-item no-drag">
+                    <label for="activity-toggle">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>当前活动</span>
+                    </label>
+                    <input type="checkbox" id="activity-toggle" checked>
+                </div>
+                <div class="setting-item no-drag">
+                    <label for="notification-toggle">
+                        <i class="fas fa-bell"></i>
+                        <span>提醒</span>
+                    </label>
+                    <input type="checkbox" id="notification-toggle" checked>
+                </div>
+                <div class="setting-item no-drag">
+                    <label for="roll-call-toggle">
+                        <i class="fas fa-users"></i>
+                        <span>随机点名</span>
+                    </label>
+                    <input type="checkbox" id="roll-call-toggle" checked>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h3>课程表管理</h3>
+                <div class="setting-item no-drag">
+                    <label for="import-schedule">
+                        <i class="fas fa-file-import"></i>
+                        <span>导入课程表</span>
+                    </label>
+                    <button class="import-btn" id="import-schedule">选择文件</button>
+                    <input type="file" id="schedule-file" accept=".json,.csv,.txt" style="display: none;">
+                </div>
+                <div class="setting-item description no-drag">
+                    <p><i class="fas fa-info-circle"></i> 支持JSON、CSV和TXT格式，TXT格式支持逗号、竖线或空格分隔</p>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h3>学生名单管理</h3>
+                <div class="setting-item no-drag">
+                    <label for="import-students">
+                        <i class="fas fa-user-plus"></i>
+                        <span>导入学生名单</span>
+                    </label>
+                    <button class="import-btn" id="import-students">选择文件</button>
+                    <input type="file" id="students-file" accept=".txt,.docx" style="display: none;">
+                </div>
+                <div class="setting-item description no-drag">
+                    <p><i class="fas fa-info-circle"></i> 支持TXT和DOCX格式，一行一个学生名字</p>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h3>系统设置</h3>
+                <div class="setting-item no-drag">
+                    <label for="autohide-toggle">
+                        <i class="fas fa-eye-slash"></i>
+                        <span>上课自动隐藏组件</span>
+                    </label>
+                    <input type="checkbox" id="autohide-toggle">
+                </div>
+                <div class="setting-item description no-drag">
+                    <p><i class="fas fa-info-circle"></i> 上课时自动取消置顶，下课后恢复</p>
+                </div>
+                <div class="setting-item no-drag">
+                    <label for="clickthrough-toggle">
+                        <i class="fas fa-mouse-pointer"></i>
+                        <span>鼠标穿透</span>
+                    </label>
+                    <input type="checkbox" id="clickthrough-toggle">
+                </div>
+                <div class="setting-item description no-drag">
+                    <p><i class="fas fa-info-circle"></i> 组件置顶但鼠标可穿透点击下层内容</p>
+                </div>
+                <div class="setting-item no-drag">
+                    <label for="autostart-toggle">
+                        <i class="fas fa-power-off"></i>
+                        <span>开机自启</span>
+                    </label>
+                    <input type="checkbox" id="autostart-toggle">
+                </div>
+                <div class="setting-item no-drag">
+                    <label for="alwaysontop-toggle">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>窗口置顶</span>
+                    </label>
+                    <input type="checkbox" id="alwaysontop-toggle" checked>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="settings.js"></script>
+</body>
+</html>
